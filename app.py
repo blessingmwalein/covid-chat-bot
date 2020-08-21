@@ -59,6 +59,7 @@ def processRequest(req):
         # log.saveCases( "country", fulfillmentText, db)
 
         return {
+
             "fulfillmentMessages": [
                 {
                     "text": {

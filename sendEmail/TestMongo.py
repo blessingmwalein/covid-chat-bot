@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-client = MongoClient("mongodb+srv://blessing:x.bling99@covid-chatbot.afhxi.mongodb.net/chatbot?retryWrites=true&w=majority")
+client = MongoClient(port=27017)
 db = client.get_database('chatbot')
 records = db.chat_records
 print(records.count_documents({}))
