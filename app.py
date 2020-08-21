@@ -38,7 +38,7 @@ def processRequest(req):
     cust_name = parameters.get("cust_name")
     cust_contact = parameters.get("cust_contact")
     cust_email = parameters.get("cust_email")
-    db = configureDataBase()
+    # db = configureDataBase()
 
     if intent == 'covid_searchcountry':
         cust_country = parameters.get("geo-country")
@@ -55,11 +55,10 @@ def processRequest(req):
             deaths_data.get('new')) + \
                           "\n" + " Total Test Done : " + str(deaths_data.get('total')) + "\n\n*******END********* \n "
         print(webhookresponse)
-        log.saveConversations(sessionID, cust_country, webhookresponse, intent, db)
-        log.saveCases( "country", fulfillmentText, db)
+        # log.saveConversations(sessionID, cust_country, webhookresponse, intent, db)
+        # log.saveCases( "country", fulfillmentText, db)
 
         return {
-
             "fulfillmentMessages": [
                 {
                     "text": {
@@ -82,13 +81,13 @@ def processRequest(req):
         }
     elif intent == "Welcome" or intent == "continue_conversation" or intent == "not_send_email" or intent == "endConversation" or intent == "Fallback" or intent == "covid_faq" or intent == "select_country_option":
         fulfillmentText = result.get("fulfillmentText")
-        log.saveConversations(sessionID, query_text, fulfillmentText, intent, db)
+        # log.saveConversations(sessionID, query_text, fulfillmentText, intent, db)
     elif intent == "send_report_to_email":
         fulfillmentText = result.get("fulfillmentText")
-        log.saveConversations(sessionID, "Sure send email", fulfillmentText, intent, db)
-        val = log.getcasesForEmail("country", "", db)
-        print("===>",val)
-        prepareEmail([cust_name, cust_contact, cust_email,val])
+        # log.saveConversations(sessionID, "Sure send email", fulfillmentText, intent, db)
+        # val = log.getcasesForEmail("country", "", db)
+        # print("===>",val)
+        # prepareEmail([cust_name, cust_contact, cust_email,val])
     elif intent == "totalnumber_cases":
         fulfillmentText = makeAPIRequest("world")
 
@@ -102,8 +101,8 @@ def processRequest(req):
                           "\n" + " Last updated : " + str(
             fulfillmentText.get('last_update')) + "\n\n*******END********* \n "
         print(webhookresponse)
-        log.saveConversations(sessionID, "Cases worldwide", webhookresponse, intent, db)
-        #log.saveCases("world", fulfillmentText, db)
+        # log.saveConversations(sessionID, "Cases worldwide", webhookresponse, intent, db)
+        # #log.saveCases("world", fulfillmentText, db)
 
         return {
 
@@ -178,7 +177,7 @@ def processRequest(req):
 
 
 
-        log.saveConversations(sessionID, "Indian State Cases", webhookresponse1, intent, db)
+        # log.saveConversations(sessionID, "Indian State Cases", webhookresponse1, intent, db)
         return {
 
             "fulfillmentMessages": [
@@ -226,8 +225,8 @@ def processRequest(req):
 
 
 def configureDataBase():
-    client = MongoClient("mongodb+srv://blessing:x.bling99@covid19.afhxi.mongodb.net/<covid19>?retryWrites=true&w=majority")
-    return client.get_database('covid19')
+    client = MongoClient("mongodb+srv://username:passwrod@cluster0-replace with you URL.mongodb.net/test?retryWrites=true&w=majority")
+    return client.get_database('covid19DB')
 
 
 def makeAPIRequest(query):
@@ -248,6 +247,8 @@ def prepareEmail(contact_list):
 
 
 if __name__ == '__main__':
-    app.run()
+    port = 5000
+    print("Starting app on port %d" % port)
+    app.run(debug=False, port=port)
 '''if __name__ == "__main__":
     app.run(port=5000, debug=True)''' # running the app on the local machine on port 8000

@@ -1,0 +1,75 @@
+{
+  "responseId": "85aaf0ad-2330-419d-a711-fb596afb94a6-d794dba9",
+  "queryResult": {
+    "queryText": "zimbabwe",
+    "parameters": {
+      "geo-country": "Zimbabwe"
+    },
+    "allRequiredParamsPresent": true,
+    "fulfillmentText": "Here are the details for Zimbabwe .  Do you want me to send the report to your Email-Id as well ?",
+    "fulfillmentMessages": [
+      {
+        "text": {
+          "text": [
+            "Here are the details for Zimbabwe .  Do you want me to send the report to your Email-Id as well ?"
+          ]
+        }
+      },
+      {
+        "text": {
+          "text": [
+            "Here are the details for Zimbabwe ."
+          ]
+        },
+        "platform": "TELEGRAM"
+      },
+      {
+        "quickReplies": {
+          "title": "Do you want me to send the report to your Email-Id as well ?",
+          "quickReplies": [
+            "Sure",
+            "Not now"
+          ]
+        },
+        "platform": "TELEGRAM"
+      },
+      {
+        "text": {
+          "text": [
+            "Here are the details for Zimbabwe ."
+          ]
+        },
+        "platform": "FACEBOOK"
+      },
+      {
+        "quickReplies": {
+          "title": "Do you want me to send the report to your Email-Id as well ?",
+          "quickReplies": [
+            "Sure",
+            "Not now"
+          ]
+        },
+        "platform": "FACEBOOK"
+      }
+    ],
+    "intent": {
+      "name": "projects/newagent-duoi/agent/intents/3bebb5fb-f849-42f5-8c34-f16eed898081",
+      "displayName": "covid_searchcountry"
+    },
+    "intentDetectionConfidence": 1,
+    "diagnosticInfo": {
+      "webhook_latency_ms": 107
+    },
+    "languageCode": "en"
+  },
+  "webhookStatus": {
+    "code": 5,
+    "message": "Webhook call failed. Error: NOT_FOUND."
+  },
+  "alternativeQueryResults": [
+    {
+      "queryText": "zimbabwe",
+      "languageCode": "en"
+    }
+  ]
+}
