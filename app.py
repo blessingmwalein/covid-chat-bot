@@ -15,6 +15,11 @@ app = Flask(__name__)  # initialising the flask app with the name 'app'
 
 
 # geting and sending response to dialogflow
+@app.route('/welcome', methods=['GET')
+@cross_origin()
+def welcome():
+    return "its working"
+                                
 @app.route('/webhook', methods=['POST'])
 @cross_origin()
 def webhook():
