@@ -9,17 +9,15 @@ from saveConversation import Conversations
 from DataRequests import MakeApiRequests
 from sendEmail import EMailClient
 from pymongo import MongoClient
-from firebase import firebase
 
 app = Flask(__name__)  # initialising the flask app with the name 'app'
 
-
-# geting and sending response to dialogflow
 @app.route('/welcome', methods=['GET'])
 @cross_origin()
 def welcome():
     return "its working"
-                                
+
+# geting and sending response to dialogflow
 @app.route('/webhook', methods=['POST'])
 @cross_origin()
 def webhook():
@@ -45,8 +43,7 @@ def processRequest(req):
     cust_contact = parameters.get("cust_contact")
     cust_email = parameters.get("cust_email")
 
-    #just edit here the db varible
-    db = firebase.FirebaseApplication("https://covid19chatbot-840f8.firebaseio.com/", None)
+    #just edit here the db varibl
 
     if intent == 'covid_searchcountry':
         cust_country = parameters.get("geo-country")
@@ -63,8 +60,7 @@ def processRequest(req):
             deaths_data.get('new')) + \
                           "\n" + " Total Test Done : " + str(deaths_data.get('total')) + "\n\n*******END********* \n "
         print(webhookresponse)
-        log.saveConversations(sessionID, cust_country, webhookresponse, intent, db)
-        log.saveCases( "country", fulfillmentText, db)
+
         return {
 
             "fulfillmentMessages": [
@@ -89,10 +85,10 @@ def processRequest(req):
         }
     elif intent == "Welcome" or intent == "continue_conversation" or intent == "not_send_email" or intent == "endConversation" or intent == "Fallback" or intent == "covid_faq" or intent == "select_country_option":
         fulfillmentText = result.get("fulfillmentText")
-        log.saveConversations(sessionID, query_text, fulfillmentText, intent, db)
+        
     elif intent == "send_report_to_email":
         fulfillmentText = result.get("fulfillmentText")
-        log.saveConversations(sessionID, "Sure send email", fulfillmentText, intent, db)
+      
         # val = log.getcasesForEmail("country", "", db)
         # print("===>",val)
         # prepareEmail([cust_name, cust_contact, cust_email,val])
@@ -109,8 +105,6 @@ def processRequest(req):
                           "\n" + " Last updated : " + str(
             fulfillmentText.get('last_update')) + "\n\n*******END********* \n "
         print(webhookresponse)
-        log.saveConversations(sessionID, "Cases worldwide", webhookresponse, intent, db)
-        log.saveCases("world", fulfillmentText, db)
         return {
 
             "fulfillmentMessages": [
@@ -183,8 +177,6 @@ def processRequest(req):
         print("***World wide Report*** \n\n" + webhookresponse3 + "\n\n*******END********* \n")
 
 
-
-        log.saveConversations(sessionID, "Indian State Cases", webhookresponse1, intent, db)
         return {
 
             "fulfillmentMessages": [
@@ -228,12 +220,6 @@ def processRequest(req):
             "fulfillmentText": "something went wrong,Lets start from the begning, Say Hi",
         }
 
-
-def configureDataBase():
-    # client = MongoClient("mongodb+srv://username:passwrod@cluster0-replace with you URL.mongodb.net/test?retryWrites=true&w=majority")
-    # return client.get_database('covid19DB')
-    client = firebase.FirebaseApplication("https://gadgetszone-279da.firebaseio.com/", None)
-    return client
 
 def makeAPIRequest(query):
     api = MakeApiRequests.Api()
